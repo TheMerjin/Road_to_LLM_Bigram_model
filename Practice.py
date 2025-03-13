@@ -32,13 +32,21 @@ p = letters[0].float()
 p = p/p.sum()
 idx = t.multinomial(p, 1, replacement= True, generator=g).item()
 
-idx = 0 
-while True:
-    p = letters[idx].float()
-    p = p/ p.sum()
-    x = t.multinomial(p, 1, replacement= True, generator=g).item()
-    key = next((k for k, v in stoi.items() if v == x), None)
-    print(key)
-    if idx == 0:
-        break
+
+for i in range(200):
+    idx = 0  # Start at the beginning marker (".")
+    word = ""
+    while True:
+        p = letters[idx].float()
+        p = p / p.sum()
+        x = t.multinomial(p, 1, replacement=True, generator=g).item()
+        key = next((k for k, v in stoi.items() if v == x), None)
+        
+        # If the end marker is generated, stop building this word
+        if key == ".":
+            break
+        
+        word += key  # Append the generated character to the word
+        idx = x      # Update idx to the newly generated character's index
     
+    print(word)
