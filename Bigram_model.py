@@ -31,15 +31,14 @@ g = t.Generator().manual_seed(420068)
 p = letters[0].float()
 p = p/p.sum()
 idx = t.multinomial(p, 1, replacement= True, generator=g).item()
+P = letters.float()
+P /= P.sum(1, keepdim= True)
 
-
-for i in range(200):
+for i in range(20):
     idx = 0  # Start at the beginning marker (".")
     word = ""
     while True:
-        p = letters[idx].float()
-        p = p / p.sum()
-        x = t.multinomial(p, 1, replacement=True, generator=g).item()
+        x = t.multinomial(P[idx], 1, replacement=True, generator=g).item()
         key = next((k for k, v in stoi.items() if v == x), None)
         
         # If the end marker is generated, stop building this word
