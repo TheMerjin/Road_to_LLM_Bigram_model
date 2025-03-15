@@ -1,8 +1,5 @@
 from statistics import *
 import torch as t
-import matplotlib
-import matplotlib.pyplot as plt
-matplotlib.use('Qt5Agg')
 
 with open(r"C:\Users\Sreek\Downloads\words_alpha.txt", "r") as file:
     content = file.read().splitlines()
@@ -39,3 +36,4 @@ Y = t.tensor(Y)
 C = t.randn((27,2))
 
 emb = C[X]
+print(emb.shape)
